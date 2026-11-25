@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -8,395 +8,383 @@ import {
   ChevronUp,
   ExternalLink,
   ShieldCheck,
+  Smartphone,
+  Timer,
 } from "lucide-react";
 import { EnquiryForm } from "../components/EnquiryForm";
 import { COMPANY, IAA_ADVISER, OFFICIAL_NZ, SERVICE_FEE } from "../company";
+import { OTHER_COMMON, WAIVER_COUNTRIES } from "../lib/waiver";
 import nzHero from "../assets/nz-hero.jpg";
-import nzFlag from "../assets/nz-flag.png";
 
-const requireCards = [
+const pathways = [
   {
-    badge: "Common for visa-waiver passports",
+    tag: "Short visits",
     title: "NZeTA",
-    body: "New Zealand Electronic Travel Authority for eligible passport holders visiting for tourism or short business. Requested online and linked to your passport before you fly.",
-    need: "Valid passport, travel plans, and payment of any New Zealand government fee that applies to your NZeTA.",
+    body: "Pre-travel authority for visa-waiver nationals, cruise passengers, Auckland transit and many Australian permanent residents.",
   },
   {
-    badge: "When NZeTA is not enough",
-    title: "Visitor visa",
-    body: "Visitor visa for tourism or visiting family when an NZeTA is not suitable for your nationality or travel purpose.",
-    need: "Passport, purpose of visit, supporting documents as required, plus government fees shown on the official application.",
+    tag: "Up to 9 months",
+    title: "Visitor Visa",
+    body: "For passports outside the waiver list, longer holidays, business visits and family stays.",
   },
   {
-    badge: "Other pathways",
-    title: "Work, study & longer stays",
-    body: "Working holiday, student, work and residence pathways when a short visitor stay is not what you need.",
-    need: "Tell us your situation — we outline the usual options and next steps before you commit.",
+    tag: "Work",
+    title: "Work Visas",
+    body: "Accredited Employer Work Visa, Working Holiday, Partner of a Worker, Post-Study Work and related options.",
+  },
+  {
+    tag: "Study",
+    title: "Student Visa",
+    body: "Fee-paying and pathway student visas for courses longer than three months, plus visas for accompanying family.",
+  },
+  {
+    tag: "Family",
+    title: "Partner & Family",
+    body: "Visitor, work and residence pathways for partners and dependent children of citizens, residents and visa holders.",
+  },
+  {
+    tag: "Settle",
+    title: "Residence",
+    body: "Skilled Migrant Category, Green List routes, Work-to-Residence, partner and parent residence pathways.",
   },
 ] as const;
 
 const steps = [
   {
-    n: "01",
-    title: "Your trip",
-    desc: "When you plan to arrive, your nationality, and which New Zealand pathway you need.",
+    n: "1",
+    title: "Share your plans",
+    body: "A short form is enough. We confirm the pathway that fits your passport and purpose, and quote one clear service fee before work starts.",
   },
   {
-    n: "02",
-    title: "Short enquiry",
-    desc: "Send a few details through the form. No payment is taken at this step.",
+    n: "2",
+    title: "We prepare and review",
+    body: "Documents gathered, fields matched to your passport and current Immigration New Zealand rules. Visa files are reviewed under our IAA licence before lodging.",
   },
   {
-    n: "03",
-    title: "Review and quote",
-    desc: "We confirm the pathway, itemize our service fee and any government fees, then you decide.",
-  },
-  {
-    n: "04",
-    title: "Licensed support",
-    desc: "A person on our team reviews your matter under our IAA licence.",
+    n: "3",
+    title: "Decision to your inbox",
+    body: "Track updates by email. Approvals sit against your passport electronically — keep the confirmation handy for check-in.",
   },
 ] as const;
 
-const paidBenefits = [
-  "A person on our team checks every answer before you proceed — under our IAA licence.",
-  "Guided form with live validation so passport typos are caught early.",
-  "Clear itemized fees before you pay: our service fee and any government fee for your pathway.",
-  "Human support by email if a field is unclear.",
-  "One request for your group — not starting from scratch for every traveler.",
-] as const;
-
-const diyPoints = [
-  "The official Immigration New Zealand portals, in your own time. They work.",
-  "You complete every field yourself and catch every typo yourself.",
-  "You track government fees, processing times and document lists alone.",
-  "Portal downtime, timeouts and retries are yours to handle.",
-  "Every traveler entered separately, with nobody to ask when a field is unclear.",
+const why = [
+  {
+    icon: ShieldCheck,
+    title: "Careful document checks",
+    body: "We catch the passport typos and missing fields that cause most delays before anything is lodged.",
+  },
+  {
+    icon: BadgeCheck,
+    title: "Rules as they stand today",
+    body: "Your file reflects the Immigration New Zealand requirements in force on the day it is submitted.",
+  },
+  {
+    icon: Smartphone,
+    title: "Any device, plain language",
+    body: "Phone, tablet or laptop — a guided flow you can finish in one sitting.",
+  },
+  {
+    icon: Timer,
+    title: "Realistic timelines",
+    body: "Before you pay, you know the usual processing window and what can slow a file down.",
+  },
 ] as const;
 
 const faqs = [
   {
-    q: "Which document do I need for New Zealand?",
-    a: "It depends on your passport and purpose — NZeTA, visitor visa, working holiday, study, work or residence pathways. Start a request and tell us your plans; we outline the usual options.",
+    q: "Do I need an NZeTA or a visa?",
+    a: "It depends on your passport and plans. Many visa-waiver nationals need an NZeTA for short visits. Everyone else typically needs a Visitor Visa for tourism, and separate visas for work, study or residence.",
   },
   {
-    q: "Can't I just do this myself for free?",
-    a: `Yes. New Zealand's official portals are on ${OFFICIAL_NZ.host} and you can apply there directly. Government fees (when they apply) are paid to New Zealand authorities either way. We are a paid private service: we guide the form, check your details, and support you through the process under our IAA licence.`,
+    q: "How long does it all take?",
+    a: "An NZeTA is often decided within hours; Immigration New Zealand says to allow up to 72 hours. Visitor and work visas usually take weeks; student and residence files can take longer. We give a realistic range before you commit.",
   },
   {
-    q: "What will I pay in total?",
-    a: `From $${SERVICE_FEE} service fee per traveler for guided assistance and review. New Zealand government visa / NZeTA fees (if any for your pathway) are separate, paid to the authorities, and confirmed before you proceed.`,
+    q: "Are you part of the New Zealand Government?",
+    a: `No. ${COMPANY.dba} is operated by ${COMPANY.legalName}, an independent private business. We are not affiliated with Immigration New Zealand. You can always apply directly at ${OFFICIAL_NZ.host}.`,
   },
   {
-    q: "Are you Immigration New Zealand?",
-    a: `No. ${COMPANY.dba} is operated by ${COMPANY.legalName}, an independent private business. We are not affiliated with Immigration New Zealand or the New Zealand Government. You can always apply on the official portal.`,
+    q: "What does the licensed immigration adviser actually do?",
+    a: `New Zealand law allows only licensed immigration advisers (or exempt people such as lawyers) to give immigration advice. ${IAA_ADVISER.nameShort} (IAA licence ${IAA_ADVISER.licenceNumber}) provides that advice on visa files we handle.`,
   },
   {
-    q: "Do you have a New Zealand immigration licence?",
-    a: `Yes. ${IAA_ADVISER.nameShort} (${IAA_ADVISER.title}, licence ${IAA_ADVISER.licenceNumber}) is on our team. Verify the listing on the Immigration Advisers Authority register via the link on this page.`,
+    q: "My passport isn't on the visa-waiver list. Can you still help?",
+    a: "Yes. Visitor, work, study, family and residence pathways are available for non-waiver nationals. Tell us your situation and we outline the usual route and fees.",
   },
   {
-    q: "Do you guarantee I'll get a visa or be let in?",
-    a: "No, and no service can. Visa grants, NZeTA outcomes and entry are decided only by New Zealand authorities. What we control is everything before that: accurate forms, document checks and clear next steps.",
+    q: "What do I need to get started?",
+    a: "For most people: a valid passport, email address, payment method when you proceed, and a clear idea of why you are going and for how long. Visa pathways may need extra documents such as a job offer or enrolment letter.",
   },
 ] as const;
 
 export function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [passport, setPassport] = useState("");
+
+  const countries = useMemo(
+    () => [...WAIVER_COUNTRIES, ...OTHER_COMMON].sort((a, b) => a.localeCompare(b)),
+    [],
+  );
+
+  const checkResult = useMemo(() => {
+    if (!passport) return null;
+    if (passport === "New Zealand" || passport === "Australia") {
+      return {
+        warn: false,
+        text: `${passport} citizens travelling on that country’s passport are generally exempt from NZeTA for entering New Zealand as a visitor. Confirm your exact situation before you fly — rules can differ for dual nationals and permanent residents.`,
+      };
+    }
+    if ((WAIVER_COUNTRIES as readonly string[]).includes(passport)) {
+      return {
+        warn: false,
+        text: `For a short visit on a ${passport} passport, travellers usually need an NZeTA before travel. Longer stays, work or study need a different visa. This is guidance only — final rules sit with Immigration New Zealand.`,
+      };
+    }
+    return {
+      warn: true,
+      text: `A ${passport} passport is typically outside the visa-waiver list for short visits, so a Visitor Visa (or another pathway) is usually required before travel. Send an enquiry and we’ll confirm the usual options for your plans.`,
+    };
+  }, [passport]);
 
   return (
     <main>
-      {/* Full-bleed hero */}
-      <section className="hero-bleed">
-        <img src={nzHero} alt="" className="hero-bleed-img" width={1600} height={900} />
-        <div className="hero-bleed-shade" />
-        <div className="wrap hero-bleed-content">
-          <p className="hero-brand">{COMPANY.dba}</p>
-          <h1 className="display hero-title">
-            Travel documents for New Zealand
-            <img src={nzFlag} alt="" className="hero-flag" width={40} height={28} />
-          </h1>
-          <p className="hero-lede">
-            Guided NZeTA and visitor visa help from {COMPANY.legalName}, with a licensed New Zealand
-            immigration adviser providing advice under an IAA licence.
-          </p>
-          <div className="hero-ctas">
-            <a href="#apply" className="btn btn-primary btn-lg">
-              Start a short request
-              <ArrowRight size={18} />
-            </a>
-            <a href="#licence" className="btn btn-on-dark">
-              View our IAA licence
-            </a>
+      <section className="hero-split">
+        <div className="wrap hero-split-inner">
+          <div>
+            <span className="hero-badge">
+              <i aria-hidden /> New Zealand immigration assistance
+            </span>
+            <h1>New Zealand entry pathways, explained clearly</h1>
+            <p className="lede">
+              Holiday, work, study, family or residence — we help you prepare the right application,
+              with licensed immigration advice on visa files and people you can actually reach.
+            </p>
+            <div className="hero-chips">
+              <span className="chip">
+                <BadgeCheck size={14} /> Licensed immigration adviser
+              </span>
+              <span className="chip">Visitor · Work · Study · Residence</span>
+              <span className="chip">Human support by email</span>
+            </div>
+            <div className="hero-ctas">
+              <a href="#pathways" className="btn btn-primary">
+                Learn more
+              </a>
+              <a href="#checker" className="btn btn-outline">
+                Check what you need
+              </a>
+            </div>
+            <p className="hero-note">
+              Fixed service fee from ${SERVICE_FEE}, shown up front · You can always apply directly at{" "}
+              <a href={OFFICIAL_NZ.url} target="_blank" rel="noopener noreferrer">
+                {OFFICIAL_NZ.host}
+              </a>
+            </p>
           </div>
-          <p className="hero-price">
-            From ${SERVICE_FEE} per traveler · government fees separate when they apply
-          </p>
+
+          <div className="hero-media">
+            <div className="hero-media-frame">
+              <img src={nzHero} alt="New Zealand landscape" width={900} height={1120} />
+            </div>
+            <div className="float-card top">
+              <div className="ok">Reviewed</div>
+              <strong>Visa files checked under an IAA licence before lodging.</strong>
+            </div>
+            <div className="float-card bottom">
+              <div className="ok">Every pathway</div>
+              <strong>NZeTA for waiver passports · visas when a short visit isn’t enough.</strong>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="wrap trust-bar">
-        <div className="trust-grid">
-          <div className="trust-item">
-            <ShieldCheck size={18} />
-            <div>
-              <strong>IAA licence on our team</strong>
-              <span>Licence {IAA_ADVISER.licenceNumber}</span>
-            </div>
-          </div>
-          <div className="trust-item">
-            <BadgeCheck size={18} />
-            <div>
-              <strong>Independent private service</strong>
-              <span>Not Immigration New Zealand</span>
-            </div>
-          </div>
-          <div className="trust-item">
-            <CheckCircle2 size={18} />
-            <div>
-              <strong>Official DIY always available</strong>
-              <span>{OFFICIAL_NZ.host}</span>
-            </div>
-          </div>
-          <div className="trust-item">
-            <img src={nzFlag} alt="" width={22} height={15} />
-            <div>
-              <strong>{COMPANY.legalName}</strong>
-              <span>Ahmedabad, India</span>
-            </div>
-          </div>
-        </div>
-        <p className="disclaimer">
-          You can apply directly on the official government website at any time.{" "}
-          <a href={OFFICIAL_NZ.url} target="_blank" rel="noopener noreferrer">
-            {OFFICIAL_NZ.host}
-          </a>
-        </p>
-      </section>
-
-      <section id="requires" className="band band-white">
+      <section id="pathways" className="band">
         <div className="wrap">
-          <h2 className="display">What New Zealand requires</h2>
+          <p className="kicker">What we help with</p>
+          <h2>One place for New Zealand entry pathways</h2>
           <p className="section-lede">
-            Most visitors need an NZeTA or visitor visa before travel. The exact pathway depends on your
-            passport and purpose.
+            A quick NZeTA for a holiday, a work visa for a new role, a student visa for a course, or
+            residence for the long term — pick the route that fits and see what’s involved.
           </p>
-          <div className="cards-3">
-            {requireCards.map((card) => (
-              <article key={card.title} className="card soft">
-                <div className="eyebrow">{card.badge}</div>
-                <h3>{card.title}</h3>
-                <p>{card.body}</p>
-                <div className="need">
-                  <div className="eyebrow muted">What you&apos;ll need</div>
-                  <p>{card.need}</p>
-                </div>
-                <p className="from-fee">From ${SERVICE_FEE} service fee</p>
+          <div className="pathway-grid">
+            {pathways.map((p) => (
+              <article key={p.title} className="pathway-card">
+                <div className="tag">{p.tag}</div>
+                <h3>{p.title}</h3>
+                <p>{p.body}</p>
+                <Link to="/contact">
+                  Talk to an adviser →
+                </Link>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="how-it-works" className="band">
+      <section className="band band-white">
         <div className="wrap">
-          <h2 className="display">How it works</h2>
-          <p className="section-lede">Four clear steps — no surprises after you enquire.</p>
-          <div className="cards-4">
+          <p className="kicker">How it works</p>
+          <h2>Three steps, one point of contact</h2>
+          <p className="section-lede">
+            You don’t need to already know the rules. Tell us where you’re headed and we take it from
+            there.
+          </p>
+          <div className="steps-grid">
             {steps.map((s) => (
-              <div key={s.n} className="card step">
-                <span className="step-n" aria-hidden>
-                  {s.n}
-                </span>
-                <div className="eyebrow">Step {s.n}</div>
+              <article key={s.n} className="step-card">
+                <div className="step-num">{s.n}</div>
                 <h3>{s.title}</h3>
-                <p>{s.desc}</p>
-              </div>
+                <p>{s.body}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="apply" className="band band-white">
-        <div className="wrap apply-grid">
-          <div>
-            <h2 className="display">Start a short request</h2>
-            <p className="section-lede">
-              Tell us who is traveling and which pathway you need. No payment on this step — we reply
-              with next steps and a clear fee breakdown.
-            </p>
-            <ul className="benefit-ticks">
-              {[
-                "Takes about a minute",
-                `Service from $${SERVICE_FEE} per traveler`,
-                "Licensed IAA adviser on our team",
-              ].map((t) => (
-                <li key={t}>
-                  <CheckCircle2 size={16} />
-                  <span>{t}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="card form-card">
-            <EnquiryForm compact />
-          </div>
-        </div>
-      </section>
-
-      <section id="costs" className="band">
+      <section id="checker" className="band">
         <div className="wrap">
-          <h2 className="display">What it costs</h2>
+          <p className="kicker">Check what you need</p>
+          <h2>NZeTA, visa, or something else?</h2>
           <p className="section-lede">
-            From ${SERVICE_FEE} per traveler for guided New Zealand visa assistance and review.
-            Government fees (when they apply) are separate and shown before you pay.
+            Pick the passport you’ll travel on. We’ll outline what New Zealand usually requires for a
+            short visit — and point you to a visa if you’re staying longer.
           </p>
-          <div className="costs-grid">
-            <div className="cost-rows">
-              {[
-                {
-                  name: "Standard review",
-                  desc: "Specialist check included in the service fee",
-                  price: "Included",
-                },
-                {
-                  name: "Human support",
-                  desc: "Email before and after you apply",
-                  price: "Included",
-                },
-                {
-                  name: "Government fee",
-                  desc: "Paid to New Zealand authorities when your pathway requires it",
-                  price: "Varies",
-                },
-              ].map((row) => (
-                <div key={row.name} className="cost-row">
-                  <div>
-                    <div className="cost-name">{row.name}</div>
-                    <div className="cost-desc">{row.desc}</div>
-                  </div>
-                  <div className="cost-price">{row.price}</div>
-                </div>
+          <div className="checker">
+            <label htmlFor="passport-country">Select your passport country</label>
+            <select
+              id="passport-country"
+              value={passport}
+              onChange={(e) => setPassport(e.target.value)}
+            >
+              <option value="">Select your passport country…</option>
+              {countries.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
               ))}
-            </div>
-            <div className="example">
-              <div className="eyebrow light">Worked example</div>
-              <h3>1 traveler to New Zealand</h3>
-              <dl>
-                <div>
-                  <div>
-                    <dt>Service fee</dt>
-                    <dd className="sub">Guided form + review</dd>
-                  </div>
-                  <dd>${SERVICE_FEE}.00</dd>
-                </div>
-                <div>
-                  <div>
-                    <dt>Government fee</dt>
-                    <dd className="sub">Confirmed before you pay</dd>
-                  </div>
-                  <dd>Shown before payment</dd>
-                </div>
-                <div className="total">
-                  <dt>Service total from</dt>
-                  <dd>${SERVICE_FEE}.00</dd>
-                </div>
-              </dl>
-              <p className="fine">
-                Government charges are not our fee. No service can guarantee a visa grant or entry —
-                decisions belong to New Zealand authorities.
-              </p>
-            </div>
+            </select>
+            {checkResult ? (
+              <div className={`checker-result ${checkResult.warn ? "warn" : ""}`}>
+                {checkResult.text}
+              </div>
+            ) : null}
+            <p className="hero-note" style={{ marginTop: "1rem" }}>
+              Prefer to talk it through? <Link to="/contact">Contact us</Link>. Independent
+              assistance — not affiliated with the New Zealand Government.
+            </p>
           </div>
         </div>
       </section>
 
       <section className="band band-white">
         <div className="wrap">
-          <h2 className="display">What ${SERVICE_FEE} adds to the official portal</h2>
+          <p className="kicker">Why {COMPANY.dba}</p>
+          <h2>Built for travellers, not jargon</h2>
           <p className="section-lede">
-            Immigration New Zealand&apos;s portals work, and you can use them yourself. Here is the
-            difference, line by line.
+            Immigration rules change and the forms assume you already know them. We close that gap —
+            with careful checks where they help and people where they matter.
           </p>
-          <div className="compare">
-            <div className="card compare-us">
-              <div className="compare-label">
-                <BadgeCheck size={16} /> With {COMPANY.dba}
-              </div>
+          <div className="why-grid">
+            {why.map((w) => (
+              <article key={w.title} className="why-card">
+                <w.icon size={20} color="var(--accent)" />
+                <h3>{w.title}</h3>
+                <p>{w.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="requirements" className="band">
+        <div className="wrap">
+          <p className="kicker">Visiting, or staying longer?</p>
+          <h2>Short trip or new chapter — the rules differ</h2>
+          <p className="section-lede">
+            New Zealand separates short visits from everything else. Knowing which side you’re on
+            decides the form, the fee and how far ahead you should start.
+          </p>
+          <div className="split-two">
+            <article className="split-panel">
+              <div className="eyebrow">Short visits</div>
+              <h3>Up to 3 months (often 6 on a UK passport), or longer on a visitor visa</h3>
               <ul>
-                {paidBenefits.map((t) => (
-                  <li key={t}>
-                    <CheckCircle2 size={16} />
-                    <span>{t}</span>
-                  </li>
-                ))}
+                <li>NZeTA for many visa-waiver nationals, cruise passengers and Auckland transit</li>
+                <li>Visitor Visa when a waiver doesn’t apply, or for longer stays</li>
+                <li>Short courses up to 3 months and business meetings are often fine</li>
+                <li>No paid work on a visitor stay</li>
               </ul>
-            </div>
-            <div className="card soft">
-              <div className="compare-label muted">{OFFICIAL_NZ.host}</div>
-              <ul className="muted-list">
-                {diyPoints.map((t) => (
-                  <li key={t}>
-                    <span className="dash" />
-                    <span>{t}</span>
-                  </li>
-                ))}
+            </article>
+            <article className="split-panel">
+              <div className="eyebrow">Longer stays</div>
+              <h3>Work, study, family and residence</h3>
+              <ul>
+                <li>Work visas tied to an accredited employer, working holiday or partner</li>
+                <li>Student visas for courses over 3 months</li>
+                <li>Partner and child visas alongside a main applicant</li>
+                <li>Residence through skills, Green List routes or family</li>
               </ul>
-              <a
-                href={OFFICIAL_NZ.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-link"
-              >
-                Open the official portal
-                <ExternalLink size={14} />
-              </a>
-            </div>
+            </article>
           </div>
         </div>
       </section>
 
-      <section id="licence" className="licence-strip">
-        <div className="wrap licence-inner">
-          <div className="licence-copy">
-            <div className="licence-icon">
-              <BadgeCheck size={22} />
-            </div>
+      <section id="apply" className="band band-white">
+        <div className="wrap">
+          <p className="kicker">Start here</p>
+          <h2>Send a short enquiry</h2>
+          <p className="section-lede">
+            No payment on this step. We reply with the usual pathway and a clear fee breakdown.
+          </p>
+          <div className="apply-grid">
             <div>
-              <div className="eyebrow">New Zealand immigration licence</div>
-              <p>
-                {IAA_ADVISER.name} · {IAA_ADVISER.title} · Licence {IAA_ADVISER.licenceNumber} ·{" "}
-                {IAA_ADVISER.role} · {COMPANY.legalName} (dba {COMPANY.dba})
-              </p>
-              <p className="licence-note">
-                New Zealand immigration advice is provided under a current Immigration Advisers
-                Authority licence held by {IAA_ADVISER.nameShort} of {COMPANY.legalName}.
-              </p>
+              <ul className="benefit-ticks">
+                {[
+                  "Takes about a minute",
+                  `Service from $${SERVICE_FEE} per traveler`,
+                  `IAA licence ${IAA_ADVISER.licenceNumber} on file`,
+                  "Official DIY always available",
+                ].map((t) => (
+                  <li key={t}>
+                    <CheckCircle2 size={16} color="var(--teal)" />
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="licence-strip" style={{ marginTop: "1.5rem" }}>
+                <div>
+                  <div className="eyebrow">New Zealand immigration licence</div>
+                  <p>
+                    {IAA_ADVISER.name} · Licence {IAA_ADVISER.licenceNumber} · {IAA_ADVISER.role} ·{" "}
+                    {COMPANY.legalName}
+                  </p>
+                  <p className="licence-note">
+                    Immigration advice is provided under a current Immigration Advisers Authority
+                    licence — not by an unlicensed third party.
+                  </p>
+                </div>
+                <a
+                  href={IAA_ADVISER.registerUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary btn-sm"
+                >
+                  Verify IAA licence
+                  <ExternalLink size={14} />
+                </a>
+              </div>
+            </div>
+            <div className="card">
+              <EnquiryForm compact />
             </div>
           </div>
-          <a
-            href={IAA_ADVISER.registerUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary"
-          >
-            {IAA_ADVISER.registerLabel}
-            <ExternalLink size={14} />
-          </a>
         </div>
       </section>
 
-      <section id="faq" className="band">
-        <div className="wrap faq-grid">
-          <div>
-            <h2 className="display">Questions, answered straight</h2>
-            <p className="section-lede">
-              Still unsure?{" "}
-              <Link to="/contact" className="text-link" style={{ marginTop: 0 }}>
-                Contact us
-              </Link>
-            </p>
-          </div>
+      <section className="band">
+        <div className="wrap">
+          <p className="kicker">Common questions</p>
+          <h2>Before you get started</h2>
           <div className="faq-list">
             {faqs.map((f, i) => {
               const open = openFaq === i;
@@ -415,6 +403,27 @@ export function HomePage() {
                 </button>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      <section className="band band-white">
+        <div className="wrap">
+          <div className="cta-band">
+            <h2>Tell us where you’re going. We’ll handle the how.</h2>
+            <p>
+              A quick NZeTA or a longer visa pathway — same team, clear fees, same people answering
+              email. Explore the pathways, or send a note and we’ll come back within one business day.
+            </p>
+            <div className="hero-ctas">
+              <a href="#pathways" className="btn btn-teal">
+                Learn more
+              </a>
+              <Link to="/contact" className="btn btn-outline" style={{ borderColor: "rgba(255,255,255,.35)", color: "#fff", background: "transparent" }}>
+                Contact us
+                <ArrowRight size={16} />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

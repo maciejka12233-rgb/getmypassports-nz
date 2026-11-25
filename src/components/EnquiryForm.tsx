@@ -168,7 +168,7 @@ export function EnquiryForm({ compact = false }: { compact?: boolean }) {
         />
         <span>
           I agree that {COMPANY.dba} may contact me about this enquiry. See our{" "}
-          <Link to="/privacy">Privacy Policy</Link> and <Link to="/terms">Terms</Link>.
+          <Link to="/privacy">Privacy Policy</Link> and <Link to="/terms">Terms and Conditions</Link>.
         </span>
       </label>
       {errors.consent ? <div className="field-error">{errors.consent}</div> : null}

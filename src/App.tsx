@@ -3,9 +3,12 @@ import { BrowserRouter, Navigate, Route, Routes, useNavigate } from "react-route
 import { Layout } from "./components/Layout";
 import { HomePage } from "./pages/Home";
 import { ContactPage } from "./pages/Contact";
+import { AboutPage } from "./pages/About";
 import { TermsPage } from "./pages/Terms";
 import { PrivacyPage } from "./pages/Privacy";
 import { RefundPage } from "./pages/Refund";
+import { CookiesPage } from "./pages/Cookies";
+import { DisclaimerPage } from "./pages/Disclaimer";
 
 function SpaPathRestore() {
   const navigate = useNavigate();
@@ -27,10 +30,13 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<HomePage />} />
+          <Route path="about" element={<AboutPage />} />
           <Route path="contact" element={<ContactPage />} />
           <Route path="terms" element={<TermsPage />} />
           <Route path="privacy" element={<PrivacyPage />} />
           <Route path="refund" element={<RefundPage />} />
+          <Route path="cookies" element={<CookiesPage />} />
+          <Route path="disclaimer" element={<DisclaimerPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

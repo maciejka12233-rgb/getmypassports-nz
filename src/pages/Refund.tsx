@@ -6,22 +6,21 @@ export function RefundPage() {
     <main>
       <section className="legal-hero">
         <div className="wrap">
-          <div className="eyebrow">Legal</div>
-          <h1 className="display">Refund Policy</h1>
+          <p className="kicker">Policies</p>
+          <h1>Payment Refund Cancel</h1>
           <p className="legal-meta">
             Last updated {LAST_UPDATED} · {COMPANY.legalName} dba {COMPANY.dba}
           </p>
         </div>
       </section>
-
       <section className="legal-body">
         <div className="wrap">
           <article>
             <h2>1. Scope</h2>
             <p>
-              This Refund Policy applies to service fees paid to {COMPANY.legalName} (dba{" "}
-              {COMPANY.dba}) for New Zealand travel-document assistance. It does not cover New Zealand
-              government fees, which are charged by authorities and generally non-refundable by us.
+              This policy applies to service fees paid to {COMPANY.legalName} (dba {COMPANY.dba}) for
+              New Zealand travel-document assistance. It does not cover New Zealand government fees,
+              which are charged by authorities and generally cannot be refunded by us.
             </p>
 
             <h2>2. Enquiries</h2>
@@ -33,16 +32,18 @@ export function RefundPage() {
             <h2>3. When we refund our service fee</h2>
             <ul>
               <li>
-                If we have not yet started substantive work on your paid order and you cancel in
-                writing, we will refund the unused service fee.
+                If you ask to cancel in writing before we have transmitted your application to New
+                Zealand authorities, we will refund the unused service fee.
               </li>
               <li>
-                If we determine we cannot assist your matter (for example, clear ineligibility we
-                identify before submission), we will refund the unused portion of our service fee.
+                If a technical or submission problem on our side means your application cannot
+                proceed, we refund our service fee in line with this policy.
               </li>
               <li>
-                If a payment error or duplicate charge occurs due to our systems, we will correct it.
+                If we determine we cannot assist your matter before lodging (for example clear
+                ineligibility we identify early), we refund the unused portion of our service fee.
               </li>
+              <li>Duplicate charges or payment errors caused by our systems will be corrected.</li>
             </ul>
 
             <h2>4. When service fees are generally non-refundable</h2>
@@ -66,7 +67,7 @@ export function RefundPage() {
               from the authority that charged them, subject to their rules.
             </p>
 
-            <h2>6. How to request a refund</h2>
+            <h2>6. How to request a refund or cancel</h2>
             <p>
               Email <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> with your name, order or
               enquiry reference, and reason. We aim to respond within five business days. Approved
@@ -75,8 +76,8 @@ export function RefundPage() {
 
             <h2>7. Related documents</h2>
             <p>
-              <Link to="/terms">Terms of Service</Link> · <Link to="/privacy">Privacy Policy</Link> ·{" "}
-              <Link to="/contact">Contact</Link>
+              <Link to="/terms">Terms and Conditions</Link> · <Link to="/privacy">Privacy Policy</Link>{" "}
+              · <Link to="/disclaimer">Disclaimer</Link> · <Link to="/contact">Contact Us</Link>
             </p>
           </article>
         </div>

@@ -6,22 +6,21 @@ export function PrivacyPage() {
     <main>
       <section className="legal-hero">
         <div className="wrap">
-          <div className="eyebrow">Legal</div>
-          <h1 className="display">Privacy Policy</h1>
+          <p className="kicker">Policies</p>
+          <h1>Privacy Policy</h1>
           <p className="legal-meta">
             Last updated {LAST_UPDATED} · {COMPANY.legalName} dba {COMPANY.dba}
           </p>
         </div>
       </section>
-
       <section className="legal-body">
         <div className="wrap">
           <article>
-            <h2>1. Controller</h2>
+            <h2>1. Who we are</h2>
             <p>
-              This Privacy Policy explains how <strong>{COMPANY.legalName}</strong> (“we”, “us”),
-              doing business as <strong>{COMPANY.dba}</strong>, collects and uses personal information
-              when you use our New Zealand travel-document website and related services.
+              This Privacy Policy explains how <strong>{COMPANY.legalName}</strong> (“we”, “us”), doing
+              business as <strong>{COMPANY.dba}</strong>, collects and uses personal information when
+              you use this website and related New Zealand travel-document services.
             </p>
             <p>
               Business address: {COMPANY.officeAddress}. Email:{" "}
@@ -35,12 +34,11 @@ export function PrivacyPage() {
                 pathway interest, passport-related details when needed to assist an application).
               </li>
               <li>
-                <strong>Contact data</strong> such as email address and any message content in an
-                enquiry.
+                <strong>Contact data</strong> such as email address, phone number and message content.
               </li>
               <li>
-                <strong>Technical data</strong> such as IP address, browser type, device type and
-                basic usage logs when you visit the site.
+                <strong>Technical data</strong> such as IP address, browser type, device type and basic
+                usage logs.
               </li>
               <li>
                 <strong>Payment data</strong> if you later pay for a service (processed by our payment
@@ -50,19 +48,21 @@ export function PrivacyPage() {
 
             <h2>3. How we use information</h2>
             <ul>
-              <li>To respond to enquiries and provide New Zealand NZeTA / visa assistance.</li>
-              <li>To review application details under our IAA-licensed team member ({IAA_ADVISER.nameShort}).</li>
-              <li>To process payments, send confirmations and provide customer support.</li>
+              <li>To respond to enquiries and provide NZeTA / visa assistance.</li>
+              <li>
+                To review application details under our IAA-licensed adviser ({IAA_ADVISER.nameShort}).
+              </li>
+              <li>To process payments, send confirmations and provide support.</li>
               <li>To operate, secure and improve the website.</li>
               <li>To comply with law and defend legal claims.</li>
             </ul>
 
-            <h2>4. Legal bases / reasons</h2>
+            <h2>4. Legal bases</h2>
             <p>
               We process information as needed to take steps at your request before a contract, to
               perform a contract for paid services, to pursue legitimate interests (site security,
               service improvement, fraud prevention), and where required by law. Where consent is
-              required (for example certain marketing), we will ask for it.
+              required, we will ask for it.
             </p>
 
             <h2>5. Sharing</h2>
@@ -100,10 +100,9 @@ export function PrivacyPage() {
             <h2>9. Your choices</h2>
             <p>
               Depending on where you live, you may have rights to access, correct, delete or restrict
-              certain information, or to object to certain processing. To make a request, email{" "}
-              <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>. We may need to verify your
-              identity. California residents may have additional rights under the CCPA/CPRA; contact
-              us to exercise them. We will not discriminate against you for exercising privacy rights.
+              certain information, or to object to certain processing. Email{" "}
+              <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> to make a request. We may need to
+              verify your identity.
             </p>
 
             <h2>10. Children</h2>
@@ -114,8 +113,8 @@ export function PrivacyPage() {
 
             <h2>11. Cookies</h2>
             <p>
-              We may use essential cookies to run the site and, if enabled, analytics cookies to
-              understand traffic. You can control cookies through your browser settings.
+              See our <Link to="/cookies">Cookie Policy</Link> for details on cookies and similar
+              technologies.
             </p>
 
             <h2>12. Changes</h2>
@@ -126,9 +125,10 @@ export function PrivacyPage() {
 
             <h2>13. Contact</h2>
             <p>
-              Privacy questions: <Link to="/contact">Contact page</Link> or{" "}
+              Privacy questions: <Link to="/contact">Contact Us</Link> or{" "}
               <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>. Related:{" "}
-              <Link to="/terms">Terms</Link> · <Link to="/refund">Refund Policy</Link>.
+              <Link to="/terms">Terms</Link> · <Link to="/refund">Refunds</Link> ·{" "}
+              <Link to="/disclaimer">Disclaimer</Link>.
             </p>
           </article>
         </div>

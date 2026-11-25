@@ -1,46 +1,61 @@
 import { Link } from "react-router-dom";
-import { COMPANY, IAA_ADVISER } from "../company";
+import { COMPANY, IAA_ADVISER, OFFICIAL_NZ } from "../company";
 
 export function Footer() {
   return (
     <footer className="footer">
       <div className="wrap footer-inner">
         <div>
-          <strong>{COMPANY.dba}</strong>
-          <p>
-            {COMPANY.legalName}
-            <br />
-            {COMPANY.officeAddress}
-            <br />
-            <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
-            <br />
-            <a href={`tel:${COMPANY.businessPhone.replace(/\s/g, "")}`}>{COMPANY.businessPhone}</a>
-            {" · "}
-            <a href={`tel:${COMPANY.mobilePhone.replace(/\s/g, "")}`}>{COMPANY.mobilePhone}</a>
-          </p>
+          <div className="footer-grid-top">
+            <div>
+              <h3>{COMPANY.legalName}</h3>
+              <p>{COMPANY.officeAddress}</p>
+            </div>
+            <div>
+              <h3>{COMPANY.email}</h3>
+              <p>
+                <a href={`tel:${COMPANY.businessPhone.replace(/\s/g, "")}`}>
+                  {COMPANY.businessPhone}
+                </a>
+                <br />
+                <a href={`tel:${COMPANY.mobilePhone.replace(/\s/g, "")}`}>{COMPANY.mobilePhone}</a>
+              </p>
+            </div>
+            <div>
+              <h3>New Zealand licence</h3>
+              <p>
+                {IAA_ADVISER.nameShort} · {IAA_ADVISER.licenceNumber}
+                <br />
+                <a href={IAA_ADVISER.registerUrl} target="_blank" rel="noopener noreferrer">
+                  Verify on the IAA register
+                </a>
+              </p>
+            </div>
+          </div>
           <div className="footer-links">
-            <Link to="/terms">Terms</Link>
-            <Link to="/privacy">Privacy</Link>
-            <Link to="/refund">Refunds</Link>
-            <Link to="/contact">Contact</Link>
+            <Link to="/terms">Terms and Conditions</Link>
+            <Link to="/privacy">Privacy Policy</Link>
+            <Link to="/cookies">Cookie Policy</Link>
+            <Link to="/refund">Payment Refund Cancel</Link>
+            <Link to="/disclaimer">Disclaimer</Link>
+            <Link to="/about">About Us</Link>
+            <Link to="/contact">Contact Us</Link>
           </div>
         </div>
         <div>
-          <strong>New Zealand licence</strong>
-          <p>
-            {IAA_ADVISER.name}
-            <br />
-            Licence {IAA_ADVISER.licenceNumber} · {IAA_ADVISER.role}
-            <br />
-            <a href={IAA_ADVISER.registerUrl} target="_blank" rel="noopener noreferrer">
-              Verify on the IAA register
+          <p className="footer-note">
+            This website is owned and run by {COMPANY.legalName} (dba {COMPANY.dba}). We have no
+            affiliation with, and are not endorsed by or acting for, the New Zealand Government or
+            Immigration New Zealand. You can always apply directly at{" "}
+            <a href={OFFICIAL_NZ.url} target="_blank" rel="noopener noreferrer">
+              {OFFICIAL_NZ.host}
             </a>
+            .
+          </p>
+          <p className="footer-note" style={{ marginTop: "0.85rem" }}>
+            © {new Date().getFullYear()} {COMPANY.dba}. All rights reserved.
           </p>
         </div>
-        <p className="footer-note">
-          Independent private service. Not Immigration New Zealand. Visa, NZeTA and entry decisions are
-          made only by New Zealand authorities. © {new Date().getFullYear()} {COMPANY.legalName}.
-        </p>
       </div>
     </footer>
   );
