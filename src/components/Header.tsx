@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { COMPANY } from "../company";
+import nzFlag from "../assets/nz-flag.png";
 
 const homeAnchors = [
   { href: "/#requires", label: "What NZ requires" },
@@ -33,7 +34,7 @@ export function Header() {
             </span>
           </Link>
           <span className="pill">
-            <img src="https://flagcdn.com/w40/nz.png" alt="" />
+            <img src={nzFlag} alt="" width={18} height={12} />
             New Zealand
           </span>
         </div>

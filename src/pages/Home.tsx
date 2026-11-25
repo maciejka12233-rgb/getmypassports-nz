@@ -3,14 +3,16 @@ import { Link } from "react-router-dom";
 import {
   ArrowRight,
   BadgeCheck,
-  Check,
   CheckCircle2,
   ChevronDown,
   ChevronUp,
   ExternalLink,
+  ShieldCheck,
 } from "lucide-react";
 import { EnquiryForm } from "../components/EnquiryForm";
 import { COMPANY, IAA_ADVISER, OFFICIAL_NZ, SERVICE_FEE } from "../company";
+import nzHero from "../assets/nz-hero.jpg";
+import nzFlag from "../assets/nz-flag.png";
 
 const requireCards = [
   {
@@ -104,93 +106,68 @@ export function HomePage() {
 
   return (
     <main>
-      <section className="hero wrap">
-        <div className="hero-copy">
-          <h1 className="display">
-            Travel documents for{" "}
-            <span className="hl">
-              New Zealand
-              <img src="https://flagcdn.com/w80/nz.png" alt="" />
-            </span>
+      {/* Full-bleed hero */}
+      <section className="hero-bleed">
+        <img src={nzHero} alt="" className="hero-bleed-img" width={1600} height={900} />
+        <div className="hero-bleed-shade" />
+        <div className="wrap hero-bleed-content">
+          <p className="hero-brand">{COMPANY.dba}</p>
+          <h1 className="display hero-title">
+            Travel documents for New Zealand
+            <img src={nzFlag} alt="" className="hero-flag" width={40} height={28} />
           </h1>
-          <p className="lede">
-            Required for most travelers entering New Zealand: the right pathway (NZeTA or visitor
-            visa). A person on our team checks every answer, and we guide you through the process
-            under our New Zealand immigration licence.
-          </p>
-          <p className="price-line">
-            From ${SERVICE_FEE} per traveler · government fees separate when they apply
+          <p className="hero-lede">
+            Guided NZeTA and visitor visa help from a U.S. company with a licensed New Zealand
+            immigration adviser on the team.
           </p>
           <div className="hero-ctas">
-            <a href="#apply" className="btn btn-primary">
+            <a href="#apply" className="btn btn-primary btn-lg">
               Start a short request
-              <ArrowRight size={16} />
+              <ArrowRight size={18} />
             </a>
-            <a href="#licence" className="btn btn-ghost">
+            <a href="#licence" className="btn btn-on-dark">
               View our IAA licence
             </a>
           </div>
-        </div>
-
-        <div className="hero-visual">
-          <div className="hero-photo">
-            <img
-              src="https://images.unsplash.com/photo-1469521669194-b92021ec077c?auto=format&fit=crop&w=1200&q=80"
-              alt="New Zealand landscape"
-              width={800}
-              height={600}
-            />
-          </div>
-          <article className="sample-card">
-            <div className="sample-top">
-              <span>Sample NZeTA</span>
-              <span className="ok">
-                <Check size={12} /> Submitted
-              </span>
-            </div>
-            <div className="sample-flag">
-              <img src="https://flagcdn.com/w40/nz.png" alt="" />
-              Visitor pathway
-            </div>
-            <dl>
-              <div>
-                <dt>Traveler</dt>
-                <dd>JAMES O&apos;CONNOR</dd>
-              </div>
-              <div>
-                <dt>Arrival</dt>
-                <dd>Mon 15 Dec 2026</dd>
-              </div>
-              <div>
-                <dt>Ref.</dt>
-                <dd>NZ-4H8M-19K2</dd>
-              </div>
-            </dl>
-            <p>Keep confirmation with your passport for the airline and border.</p>
-          </article>
+          <p className="hero-price">
+            From ${SERVICE_FEE} per traveler · government fees separate when they apply
+          </p>
         </div>
       </section>
 
-      <section className="wrap stats-wrap">
-        <div className="stats">
-          <div className="stats-grid">
-            {[
-              { k: "Documents", v: "NZeTA / visa", s: "pathway depends on passport" },
-              { k: "Service fee", v: `$${SERVICE_FEE}`, s: "per traveler, from" },
-              { k: "Government fee", v: "Varies", s: "paid to NZ authorities when due" },
-              { k: "Licence", v: "IAA", s: "licensed adviser on our team" },
-            ].map((item) => (
-              <div key={item.k} className="stat">
-                <div className="stat-k">{item.k}</div>
-                <div className="stat-v">{item.v}</div>
-                <div className="stat-s">{item.s}</div>
-              </div>
-            ))}
+      <section className="wrap trust-bar">
+        <div className="trust-grid">
+          <div className="trust-item">
+            <ShieldCheck size={18} />
+            <div>
+              <strong>IAA licence on our team</strong>
+              <span>Licence {IAA_ADVISER.licenceNumber}</span>
+            </div>
+          </div>
+          <div className="trust-item">
+            <BadgeCheck size={18} />
+            <div>
+              <strong>Independent private service</strong>
+              <span>Not Immigration New Zealand</span>
+            </div>
+          </div>
+          <div className="trust-item">
+            <CheckCircle2 size={18} />
+            <div>
+              <strong>Official DIY always available</strong>
+              <span>{OFFICIAL_NZ.host}</span>
+            </div>
+          </div>
+          <div className="trust-item">
+            <img src={nzFlag} alt="" width={22} height={15} />
+            <div>
+              <strong>Chicago · United States</strong>
+              <span>{COMPANY.legalName}</span>
+            </div>
           </div>
         </div>
         <p className="disclaimer">
-          {COMPANY.dba} ({COMPANY.legalName}) is an independent private company. We are not Immigration
-          New Zealand. You can also apply directly on the official government website.{" "}
+          You can apply directly on the official government website at any time.{" "}
           <a href={OFFICIAL_NZ.url} target="_blank" rel="noopener noreferrer">
             {OFFICIAL_NZ.host}
           </a>
@@ -223,8 +200,8 @@ export function HomePage() {
 
       <section id="how-it-works" className="band">
         <div className="wrap">
-          <h2 className="display">Four steps, and you know all four</h2>
-          <p className="section-lede">Most services show you three. The fourth one is real, so here it is.</p>
+          <h2 className="display">How it works</h2>
+          <p className="section-lede">Four clear steps — no surprises after you enquire.</p>
           <div className="cards-4">
             {steps.map((s) => (
               <div key={s.n} className="card step">
@@ -248,20 +225,20 @@ export function HomePage() {
               Tell us who is traveling and which pathway you need. No payment on this step — we reply
               with next steps and a clear fee breakdown.
             </p>
-            <ul className="compare" style={{ listStyle: "none", padding: 0, marginTop: "1.25rem" }}>
+            <ul className="benefit-ticks">
               {[
                 "Takes about a minute",
                 `Service from $${SERVICE_FEE} per traveler`,
                 "Licensed IAA adviser on our team",
               ].map((t) => (
-                <li key={t} style={{ display: "flex", gap: "0.5rem", marginBottom: "0.55rem", fontSize: "0.92rem" }}>
-                  <CheckCircle2 size={16} color="var(--accent)" style={{ marginTop: 2, flexShrink: 0 }} />
+                <li key={t}>
+                  <CheckCircle2 size={16} />
                   <span>{t}</span>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="card">
+          <div className="card form-card">
             <EnquiryForm compact />
           </div>
         </div>
