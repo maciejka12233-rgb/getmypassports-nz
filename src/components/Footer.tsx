@@ -10,11 +10,13 @@ export function Footer() {
           <p>
             {COMPANY.legalName}
             <br />
-            Office: {COMPANY.officeAddress}
-            <br />
-            Registered: {COMPANY.registeredAddress}
+            {COMPANY.officeAddress}
             <br />
             <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
+            <br />
+            <a href={`tel:${COMPANY.businessPhone.replace(/\s/g, "")}`}>{COMPANY.businessPhone}</a>
+            {" · "}
+            <a href={`tel:${COMPANY.mobilePhone.replace(/\s/g, "")}`}>{COMPANY.mobilePhone}</a>
           </p>
           <div className="footer-links">
             <Link to="/terms">Terms</Link>

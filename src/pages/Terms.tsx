@@ -24,13 +24,14 @@ export function TermsPage() {
               (“we”, “us”, “our”).
             </p>
             <p>
-              Office address: {COMPANY.officeAddress}. Registered address: {COMPANY.registeredAddress}.
-              Contact: <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>.
+              Business address: {COMPANY.officeAddress}. Postal address: {COMPANY.postalAddress}.
+              Email: <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>. Phone:{" "}
+              {COMPANY.businessPhone}.
             </p>
             <p>
-              New Zealand immigration advice on this site is provided under our Immigration Advisers
-              Authority licence held by {IAA_ADVISER.name} (Licence {IAA_ADVISER.licenceNumber}), an
-              employee of {COMPANY.legalName}.{" "}
+              New Zealand immigration advice on this site is provided under an Immigration Advisers
+              Authority licence held by {IAA_ADVISER.name} (Licence {IAA_ADVISER.licenceNumber}),{" "}
+              {IAA_ADVISER.role.toLowerCase()} with {COMPANY.legalName}.{" "}
               <a href={IAA_ADVISER.registerUrl} target="_blank" rel="noopener noreferrer">
                 Verify the licence
               </a>
@@ -110,9 +111,9 @@ export function TermsPage() {
 
             <h2>10. Governing law</h2>
             <p>
-              These Terms are governed by the laws of the {COMPANY.governingLaw}, without regard to
-              conflict-of-law rules. Courts located in Cook County, Illinois shall have exclusive
-              jurisdiction, except where consumer protection law requires otherwise.
+              These Terms are governed by the laws of {COMPANY.governingLaw}, without regard to
+              conflict-of-law rules, except where mandatory consumer protection law in your country
+              requires otherwise.
             </p>
 
             <h2>11. Changes</h2>

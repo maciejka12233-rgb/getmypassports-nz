@@ -1,4 +1,4 @@
-import { MapPin, Mail, BadgeCheck, ExternalLink } from "lucide-react";
+import { MapPin, Mail, Phone, BadgeCheck, ExternalLink, Globe } from "lucide-react";
 import { EnquiryForm } from "../components/EnquiryForm";
 import { COMPANY, IAA_ADVISER, LAST_UPDATED } from "../company";
 
@@ -36,15 +36,46 @@ export function ContactPage() {
               </article>
               <article className="card soft">
                 <div className="eyebrow">
-                  <MapPin size={12} /> Office
+                  <Phone size={12} /> Phone
+                </div>
+                <p>
+                  Business:{" "}
+                  <a href={`tel:${COMPANY.businessPhone.replace(/\s/g, "")}`}>
+                    {COMPANY.businessPhone}
+                  </a>
+                  <br />
+                  Direct:{" "}
+                  <a href={`tel:${COMPANY.directDial.replace(/\s/g, "")}`}>{COMPANY.directDial}</a>
+                  <br />
+                  Mobile:{" "}
+                  <a href={`tel:${COMPANY.mobilePhone.replace(/\s/g, "")}`}>{COMPANY.mobilePhone}</a>
+                </p>
+              </article>
+              <article className="card soft">
+                <div className="eyebrow">
+                  <MapPin size={12} /> Business address
                 </div>
                 <p>{COMPANY.officeAddress}</p>
               </article>
               <article className="card soft">
                 <div className="eyebrow">
-                  <MapPin size={12} /> Registered
+                  <MapPin size={12} /> Postal / service address
                 </div>
-                <p>{COMPANY.registeredAddress}</p>
+                <p>{COMPANY.postalAddress}</p>
+              </article>
+              <article className="card soft">
+                <div className="eyebrow">
+                  <Globe size={12} /> Websites
+                </div>
+                <p>
+                  <a href={COMPANY.website} target="_blank" rel="noopener noreferrer">
+                    getmypassports.com
+                  </a>
+                  <br />
+                  <a href={COMPANY.websiteAlt} target="_blank" rel="noopener noreferrer">
+                    avenuesoverseas.com
+                  </a>
+                </p>
               </article>
               <article className="card soft">
                 <div className="eyebrow">
@@ -52,6 +83,8 @@ export function ContactPage() {
                 </div>
                 <p>
                   {IAA_ADVISER.nameShort} · {IAA_ADVISER.licenceNumber}
+                  <br />
+                  {IAA_ADVISER.role} · {COMPANY.legalName}
                 </p>
                 <a
                   href={IAA_ADVISER.registerUrl}

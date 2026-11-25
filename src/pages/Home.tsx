@@ -89,7 +89,7 @@ const faqs = [
   },
   {
     q: "Are you Immigration New Zealand?",
-    a: `No. ${COMPANY.dba} is operated by ${COMPANY.legalName}, an independent private company. We are not affiliated with Immigration New Zealand or the New Zealand Government. You can always apply on the official portal.`,
+    a: `No. ${COMPANY.dba} is operated by ${COMPANY.legalName}, an independent private business. We are not affiliated with Immigration New Zealand or the New Zealand Government. You can always apply on the official portal.`,
   },
   {
     q: "Do you have a New Zealand immigration licence?",
@@ -117,8 +117,8 @@ export function HomePage() {
             <img src={nzFlag} alt="" className="hero-flag" width={40} height={28} />
           </h1>
           <p className="hero-lede">
-            Guided NZeTA and visitor visa help from a U.S. company with a licensed New Zealand
-            immigration adviser on the team.
+            Guided NZeTA and visitor visa help from {COMPANY.legalName}, with a licensed New Zealand
+            immigration adviser providing advice under an IAA licence.
           </p>
           <div className="hero-ctas">
             <a href="#apply" className="btn btn-primary btn-lg">
@@ -161,8 +161,8 @@ export function HomePage() {
           <div className="trust-item">
             <img src={nzFlag} alt="" width={22} height={15} />
             <div>
-              <strong>Chicago · United States</strong>
-              <span>{COMPANY.legalName}</span>
+              <strong>{COMPANY.legalName}</strong>
+              <span>Ahmedabad, India</span>
             </div>
           </div>
         </div>
@@ -366,11 +366,11 @@ export function HomePage() {
               <div className="eyebrow">New Zealand immigration licence</div>
               <p>
                 {IAA_ADVISER.name} · {IAA_ADVISER.title} · Licence {IAA_ADVISER.licenceNumber} ·{" "}
-                {IAA_ADVISER.role} of {COMPANY.legalName} (dba {COMPANY.dba})
+                {IAA_ADVISER.role} · {COMPANY.legalName} (dba {COMPANY.dba})
               </p>
               <p className="licence-note">
-                We hold a current Immigration Advisers Authority licence. Immigration advice for New
-                Zealand matters is provided by our licensed team member — not by an outside agent.
+                New Zealand immigration advice is provided under a current Immigration Advisers
+                Authority licence held by {IAA_ADVISER.nameShort} of {COMPANY.legalName}.
               </p>
             </div>
           </div>

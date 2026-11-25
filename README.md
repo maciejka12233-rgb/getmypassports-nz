@@ -2,11 +2,13 @@
 
 Standalone Google Ads / certification landing for **New Zealand NZeTA & visitor visas**.
 
-**Company:** Quick Passport and Visa, LLC dba Get My Passports  
-**Office:** 432 N Clark Street, Suite 203, Chicago IL 60654  
-**Registered:** 50 E 16th Street, 1308, Chicago IL 60616  
+**Company:** Avenues Overseas (dba Get My Passports)  
+**Address:** 307 Aditya, B/H Sardar Patel Sewa Samaj, Mithakali Six Roads, Ahmedabad, Gujarat, 380006, India  
+**Email:** ambika@avenuesoverseas.com  
+**Phone:** +91 9825130106 · Mobile +61 401876319  
+**Web:** getmypassports.com · avenuesoverseas.com  
 
-**IAA licence (employee):** Ambika Raghuvirsingh Kushwaha · Licence `201000972`  
+**IAA licence:** Ambika Raghuvirsingh Kushwaha · Licence `201000972` (self employed)  
 https://app.mbieregisters.govt.nz/iaa/ext/adviser/view/201000972
 
 ## Pages
