@@ -9,6 +9,14 @@ Standalone Google Ads / certification landing for **New Zealand NZeTA & visitor 
 **IAA licence (employee):** Ambika Raghuvirsingh Kushwaha · Licence `201000972`  
 https://app.mbieregisters.govt.nz/iaa/ext/adviser/view/201000972
 
+## Pages
+
+- `/` — New Zealand landing + short enquiry form
+- `/contact` — contact details + full form
+- `/terms` — Terms of Service
+- `/privacy` — Privacy Policy
+- `/refund` — Refund Policy
+
 ## Develop
 
 ```bash
@@ -22,4 +30,4 @@ npm run dev
 npm run build
 ```
 
-Static output is in `dist/` (Cloudflare Pages / GitHub Pages ready).
+Static output is in `dist/` (Cloudflare Pages ready via `_redirects`).

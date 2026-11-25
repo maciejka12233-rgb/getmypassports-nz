@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Get My Passports</title>
+    <script>
+      // SPA fallback: keep path so the client router can render /terms, /privacy, etc.
+      sessionStorage.setItem(
+        "gmp-spa-path",
+        location.pathname + location.search + location.hash,
+      );
+      location.replace("./");
+    </script>
+  </head>
+  <body></body>
+</html>

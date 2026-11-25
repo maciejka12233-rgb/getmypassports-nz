@@ -6,6 +6,10 @@ export const COMPANY = {
   brand: "Get My Passports",
   officeAddress: "432 N Clark Street, Suite 203, Chicago IL 60654",
   registeredAddress: "50 E 16th Street, 1308, Chicago IL 60616",
+  email: "support@getmypassports.com",
+  phone: "",
+  governingLaw: "State of Illinois, United States",
+  siteName: "Get My Passports — New Zealand",
 } as const;
 
 export const IAA_ADVISER = {
@@ -28,3 +32,5 @@ export const OFFICIAL_NZ = {
 } as const;
 
 export const SERVICE_FEE = 99;
+
+export const LAST_UPDATED = "November 25, 2026";
