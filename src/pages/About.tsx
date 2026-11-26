@@ -89,13 +89,13 @@ export function AboutPage() {
             <article className="about-point">
               <h3>Business details</h3>
               <p>
-                {COMPANY.legalName}
+                {COMPANY.legalName} (dba {COMPANY.dba})
                 <br />
-                {COMPANY.officeAddress}
+                Office: {COMPANY.officeAddress}
+                <br />
+                Registered: {COMPANY.registeredAddress}
                 <br />
                 <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
-                <br />
-                {COMPANY.businessPhone} · {COMPANY.mobilePhone}
               </p>
             </article>
           </div>

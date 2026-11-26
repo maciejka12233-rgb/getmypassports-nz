@@ -1,22 +1,19 @@
-/** Company + NZ licensed immigration adviser (IAA) — from the public IAA register. */
+/** Company + NZ licensed immigration adviser (IAA) on the team. */
 
 export const COMPANY = {
-  legalName: "Avenues Overseas",
+  legalName: "Quick Passport and Visa, LLC",
   dba: "Get My Passports",
   brand: "Get My Passports",
-  officeAddress:
-    "307 Aditya, B/H Sardar Patel Sewa Samaj, Mithakali Six Roads, Ahmedabad, Gujarat, 380006, India",
-  registeredAddress:
-    '307 "Aditya", B/H Sardar Patel Seva Samaj, Mithakali Six Roads, Ahmedabad, Gujarat, 380006, India',
-  postalAddress:
-    '307 "Aditya", B/H Sardar Patel Seva Samaj, Mithakali Six Roads, Ahmedabad, Gujarat, 380006, India',
-  email: "ambika@avenuesoverseas.com",
-  businessPhone: "+91 9825130106",
-  directDial: "+91 9879781717",
-  mobilePhone: "+61 401876319",
+  officeAddress: "432 N Clark Street, Suite 203, Chicago IL 60654",
+  registeredAddress: "50 E 16th Street, 1308, Chicago IL 60616",
+  postalAddress: "50 E 16th Street, 1308, Chicago IL 60616",
+  email: "support@getmypassports.com",
+  businessPhone: "",
+  directDial: "",
+  mobilePhone: "",
   website: "https://www.getmypassports.com",
-  websiteAlt: "https://www.avenuesoverseas.com",
-  governingLaw: "India",
+  websiteAlt: "",
+  governingLaw: "State of Illinois, United States",
   siteName: "Get My Passports — New Zealand",
 } as const;
 
@@ -27,7 +24,7 @@ export const IAA_ADVISER = {
   title: "Licensed Immigration Adviser",
   authority: "Immigration Advisers Authority (IAA)",
   authorityShort: "IAA",
-  role: "Self employed",
+  role: "Employee",
   registerUrl:
     "https://app.mbieregisters.govt.nz/iaa/ext/adviser/view/201000972",
   registerLabel: "Verify IAA licence",
@@ -41,4 +38,4 @@ export const OFFICIAL_NZ = {
 
 export const SERVICE_FEE = 99;
 
-export const LAST_UPDATED = "November 25, 2026";
+export const LAST_UPDATED = "November 26, 2026";

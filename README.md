@@ -2,10 +2,11 @@
 
 Professional NZ immigration assistance landing (EntryGov-style layout, original branding/copy).
 
-**Company:** Avenues Overseas (dba Get My Passports)  
-**Address:** 307 Aditya, B/H Sardar Patel Sewa Samaj, Mithakali Six Roads, Ahmedabad, Gujarat, 380006, India  
-**Email:** ambika@avenuesoverseas.com  
-**IAA:** Ambika Kushwaha · `201000972`
+**Company:** Quick Passport and Visa, LLC dba Get My Passports  
+**Office:** 432 N Clark Street, Suite 203, Chicago IL 60654  
+**Registered:** 50 E 16th Street, 1308, Chicago IL 60616  
+**Email:** support@getmypassports.com  
+**IAA:** Ambika Kushwaha · `201000972` (employee)
 
 ## Routes
 

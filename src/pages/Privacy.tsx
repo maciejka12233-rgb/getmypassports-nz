@@ -23,8 +23,8 @@ export function PrivacyPage() {
               you use this website and related New Zealand travel-document services.
             </p>
             <p>
-              Business address: {COMPANY.officeAddress}. Email:{" "}
-              <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>. Phone: {COMPANY.businessPhone}.
+              Office: {COMPANY.officeAddress}. Registered: {COMPANY.registeredAddress}. Email:{" "}
+              <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>.
             </p>
 
             <h2>2. Information we collect</h2>
@@ -79,8 +79,8 @@ export function PrivacyPage() {
 
             <h2>6. International transfers</h2>
             <p>
-              We are based in India and may process information in India, New Zealand, Australia and
-              other countries where our providers operate. Where required, we use appropriate
+              We are based in the United States and may process information in the U.S., New Zealand
+              and other countries where our providers operate. Where required, we use appropriate
               safeguards for cross-border transfers.
             </p>
 

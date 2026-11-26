@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MapPin, Mail, Phone, BadgeCheck, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
+import { MapPin, Mail, BadgeCheck, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import { EnquiryForm } from "../components/EnquiryForm";
 import { COMPANY, IAA_ADVISER, LAST_UPDATED, OFFICIAL_NZ } from "../company";
 
@@ -79,25 +79,21 @@ export function ContactPage() {
               </article>
               <article className="card soft">
                 <div className="eyebrow">
-                  <Phone size={12} /> Phone
-                </div>
-                <p>
-                  {COMPANY.businessPhone}
-                  <br />
-                  {COMPANY.directDial}
-                  <br />
-                  {COMPANY.mobilePhone}
-                </p>
-              </article>
-              <article className="card soft">
-                <div className="eyebrow">
-                  <MapPin size={12} /> Address
+                  <MapPin size={12} /> Office
                 </div>
                 <p>
                   {COMPANY.legalName}
                   <br />
+                  dba {COMPANY.dba}
+                  <br />
                   {COMPANY.officeAddress}
                 </p>
+              </article>
+              <article className="card soft">
+                <div className="eyebrow">
+                  <MapPin size={12} /> Registered
+                </div>
+                <p>{COMPANY.registeredAddress}</p>
               </article>
               <article className="card soft">
                 <div className="eyebrow">

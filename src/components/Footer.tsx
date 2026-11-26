@@ -9,22 +9,24 @@ export function Footer() {
           <div className="footer-grid-top">
             <div>
               <h3>{COMPANY.legalName}</h3>
-              <p>{COMPANY.officeAddress}</p>
+              <p>
+                dba {COMPANY.dba}
+                <br />
+                Office: {COMPANY.officeAddress}
+                <br />
+                Registered: {COMPANY.registeredAddress}
+              </p>
             </div>
             <div>
               <h3>{COMPANY.email}</h3>
               <p>
-                <a href={`tel:${COMPANY.businessPhone.replace(/\s/g, "")}`}>
-                  {COMPANY.businessPhone}
-                </a>
-                <br />
-                <a href={`tel:${COMPANY.mobilePhone.replace(/\s/g, "")}`}>{COMPANY.mobilePhone}</a>
+                <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
               </p>
             </div>
             <div>
               <h3>New Zealand licence</h3>
               <p>
-                {IAA_ADVISER.nameShort} · {IAA_ADVISER.licenceNumber}
+                {IAA_ADVISER.nameShort} · {IAA_ADVISER.licenceNumber} · {IAA_ADVISER.role}
                 <br />
                 <a href={IAA_ADVISER.registerUrl} target="_blank" rel="noopener noreferrer">
                   Verify on the IAA register
@@ -44,9 +46,10 @@ export function Footer() {
         </div>
         <div>
           <p className="footer-note">
-            This website is owned and run by {COMPANY.legalName} (dba {COMPANY.dba}). We have no
-            affiliation with, and are not endorsed by or acting for, the New Zealand Government or
-            Immigration New Zealand. You can always apply directly at{" "}
+            This website is owned and run by {COMPANY.legalName} (dba {COMPANY.dba}), a privately held
+            company registered in the United States. We have no affiliation with, and are not endorsed
+            by or acting for, the New Zealand Government or Immigration New Zealand. You can always
+            apply directly at{" "}
             <a href={OFFICIAL_NZ.url} target="_blank" rel="noopener noreferrer">
               {OFFICIAL_NZ.host}
             </a>

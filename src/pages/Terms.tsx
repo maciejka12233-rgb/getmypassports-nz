@@ -145,8 +145,9 @@ export function TermsPage() {
 
             <h2>12. Governing law</h2>
             <p>
-              These Terms are governed by the laws of {COMPANY.governingLaw}, except where mandatory
-              consumer protection law in your country requires otherwise.
+              These Terms are governed by the laws of the {COMPANY.governingLaw}, without regard to
+              conflict-of-law rules. Courts located in Cook County, Illinois shall have exclusive
+              jurisdiction, except where consumer protection law requires otherwise.
             </p>
 
             <h2>13. Changes to these Terms</h2>
@@ -157,13 +158,13 @@ export function TermsPage() {
 
             <h2>14. Contact us</h2>
             <p>
-              {COMPANY.legalName}
+              {COMPANY.legalName} (dba {COMPANY.dba})
               <br />
               <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
               <br />
-              {COMPANY.businessPhone} · {COMPANY.mobilePhone}
+              Office: {COMPANY.officeAddress}
               <br />
-              {COMPANY.officeAddress}
+              Registered: {COMPANY.registeredAddress}
               <br />
               <Link to="/contact">Contact Us</Link>
             </p>
